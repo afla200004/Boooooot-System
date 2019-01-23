@@ -1415,21 +1415,9 @@ client.on("message", message => {
 
 
 
-const Discord = require("discord.js"); 
-const bot = new Discord.Client({disableEveryone: true});
-const Canvas = require('canvas') 
-const fs = module.require("fs"); 
-const r1 = require('snekfetch'); 
 
 
 //var يعني تختصر للحاجه زي منا عامل كدة
-
-var copy = "ALPHACODE STEWART"
-
-
-var mo = "الفلوس"
-var po = "النقاط"
-var lev = "الفل"
 
 
 bot.on("ready", async () => { // كل حاجه هتتفح لما البوت يشتغل
