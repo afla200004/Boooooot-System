@@ -70,7 +70,8 @@ client.user.setGame(`-help`,"http://twitch.tv/S-F")
  -bc ===> ل نشر البرود كاست
  -say ===> البوت يكتبلك ف أي روم تبيه
  -gstart ===> لعمل ققيف واي ( اذا تبي تختار الروم اكتب اسم الروم بدون منشن)
- -server ===> لعرض معلومات السيرفر
+ -dall لحذف جمبيع الرتب 
+-server ===> لعرض معلومات السيرفر
  =================
  General Commands
  =================
@@ -79,7 +80,7 @@ client.user.setGame(`-help`,"http://twitch.tv/S-F")
  -mcskin ===> لعرض سكنك ف ماين كرافت
  -set ===> ل تثبيت رتبة الراينبو 
  -bot ===> يطلعلك معلومات البوت 
- 
+ -rps ===> للعب لعبة حجرة ورقة مقص
  
 **
 `);
@@ -87,6 +88,138 @@ client.user.setGame(`-help`,"http://twitch.tv/S-F")
 
     }
 });
+
+
+
+client.on('guildCreate', guild => {
+  var embed = new Discord.RichEmbed()
+  .setColor(0x5500ff)
+  .setDescription(`**شكراً لأضافة البوت الى سيرفر **`)
+      guild.owner.send(embed)
+});
+
+
+client.on('guildMemberAdd', member=> {
+    member.addRole(member.guild.roles.find("name","Member"));
+    });
+
+
+
+
+
+
+client.on("message", function(message) {
+    var prefix = "-";
+   if(message.content.startsWith(prefix + "rps")) {
+    let messageArgs = message.content.split(" ").slice(1).join(" ");
+    let messageRPS = message.content.split(" ").slice(2).join(" ");
+    let arrayRPS = ['**# - Rock**','**# - Paper**','**# - Scissors**'];
+    let result = `${arrayRPS[Math.floor(Math.random() * arrayRPS.length)]}`;
+    var RpsEmbed = new Discord.RichEmbed()
+    .setAuthor(message.author.username)
+    .setThumbnail(message.author.avatarURL)
+    .addField("Rock","🇷",true)
+    .addField("Paper","🇵",true)
+    .addField("Scissors","🇸",true)
+    message.channel.send(RpsEmbed).then(msg => {
+        msg.react(' 🇷')
+        msg.react("🇸")
+        msg.react("🇵")
+.then(() => msg.react('🇷'))
+.then(() =>msg.react('🇸'))
+.then(() => msg.react('🇵'))
+let reaction1Filter = (reaction, user) => reaction.emoji.name === '🇷' && user.id === message.author.id;
+let reaction2Filter = (reaction, user) => reaction.emoji.name === '🇸' && user.id === message.author.id;
+let reaction3Filter = (reaction, user) => reaction.emoji.name === '🇵' && user.id === message.author.id;
+let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
+       
+let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
+let reaction3 = msg.createReactionCollector(reaction3Filter, { time: 12000 });
+reaction1.on("collect", r => {
+        message.channel.send(result)
+})
+reaction2.on("collect", r => {
+        message.channel.send(result)
+})
+reaction3.on("collect", r => {
+        message.channel.send(result)
+})
+ 
+    })
+}
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var  n3k4a = {};
+client.on('guildMemberRemove', member => {
+ n3k4a[member.id] = {roles: member.roles.array()};
+});
+client.on('guildMemberAdd', member => {
+if(! n3k4a[member.user.id]) return;
+console.log( n3k4a[member.user.id].roles.length);
+for(let i = 0; i <  n3k4a[member.user.id].roles.length + 1; i++) {
+member.addRole( n3k4a[member.user.id].roles.shift());
+}
+});
+
+
+
+
+
+
+
+
+
+
+client.on("message", msg => {
+ if(!msg.guild.member(msg.author).hasPermission("MANAGE_ROLES")) return msg.reply("انت لا تملك صلاحيات !! ").then(msgS => msgS.delete(5000));
+              if(!msg.guild.member(client.user).hasPermission("MANAGE_Roles")) return msg.reply("البوت لايملك صلاحيات ").then(msgS => msgS.delete(5000));;
+var prefix = '!';//البرفكس
+if(msg.content.startsWith(prefix + "dall")){
+msg.delete();
+var roles = msg.guild.roles.forEach(m =>{
+m.delete();
+})
+msg.reply("تم بنجاح").then(p => {
+p.edit(":white_check_mark:")
+p.delete(1700);
+})
+}
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
