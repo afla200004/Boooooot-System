@@ -645,39 +645,6 @@ client.on('message', message => {
 
 
   
-  client.on("message", msg => {
-    var prefix = "-";
-if(msg.content.startsWith (prefix + "profile")) {
-if(!msg.channel.guild) return msg.reply('**:x: اسف لكن هذا الامر للسيرفرات فقط **');         
-const embed = new Discord.RichEmbed();
-embed.addField(":cloud_tornado:  الاسم", `**[ ${msg.author.username}#${msg.author.discriminator} ]**`, true)
-   .addField(":id:  الايدي", `**[ ${msg.author.id} ]**`, true)
-   .setColor("RANDOM")
-   .setFooter(msg.author.username , msg.author.avatarURL)
-   .setThumbnail(`${msg.author.avatarURL}`)
-   .setTimestamp()
-   .setURL(`${msg.author.avatarURL}`)
-   .addField(':spy:  الحالة', `**[ ${msg.author.presence.status.toUpperCase()} ]**`, true)
-   .addField(':satellite_orbital:   يلعب', `**[ ${msg.author.presence.game === null ? "No Game" : msg.author.presence.game.name} ]**`, true)
-   .addField(':military_medal:  الرتب', `**[ ${msg.member.roles.filter(r => r.name).size} ]**`, true)
-   .addField(':robot:  هل هو بوت', `**[ ${msg.author.bot.toString().toUpperCase()} ]**`, true);
-msg.channel.send({embed: embed})
-}
-});
-
-
-
-
-
-
-
-client.on("guildMemberAdd", member => {
-  member.createDM().then(function (channel) {
-  return channel.send(`:rose:  ولكم نورت السيرفر:rose: 
-:crown:اسم العضو  ${member}:crown:  
-انت العضو رقم ${member.guild.memberCount} `) 
-}).catch(console.error)
-})
   
   
   
@@ -1479,7 +1446,7 @@ bot.on("ready", async () => { // كل حاجه هتتفح لما البوت يش
 
 client.on('message', message => {
 
-if (message.content.startsWith("*profile")) { // الامر
+if (message.content.startsWith("-profile")) { // الامر
  let canvas = new Canvas(300, 300) //حجم الصوره الي هتظهر
  let ctx = canvas.getContext('2d')
     let Image = Canvas.Image
@@ -1617,7 +1584,7 @@ if (message.content.startsWith("*profile")) { // الامر
 });
 
 
-client.login("token"); //تكون بوتك هنا 
+
 
 
 
